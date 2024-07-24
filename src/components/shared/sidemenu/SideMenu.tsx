@@ -6,6 +6,7 @@ import {
   IoHeartOutline,
   IoListOutline,
   IoAccessibilityOutline,
+  IoFlask,
 } from 'react-icons/io5';
 
 interface MenuItem {
@@ -35,7 +36,7 @@ const menuItems: MenuItem[] = [
     title: 'Material',
     subTitle: 'filamentos',
     href: '/dashboard/material',
-    Icon: IoPawOutline,
+    Icon: IoFlask,
   },
   {
     title: 'Cotizador',

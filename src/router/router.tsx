@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { DashboardLayout } from '../layout/DashboardLayout';
 import { Root } from '../Root';
-import { ProductsPage } from '../pages';
+import { MaterialPage, ProductsPage } from '../pages';
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'material',
-            element: <ProductsPage />,
+            element: <MaterialPage />,
           },
 
           {
