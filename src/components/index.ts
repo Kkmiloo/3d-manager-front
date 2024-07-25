@@ -1,4 +1,6 @@
-export { ProductForm } from './forms/ProductForm';
+export { ProductModal } from './modal/ProductModal';
+
+export { ProductFormModal } from './forms/ProductFormModal';
 
 export { CustomTable } from './shared/table/CustomTable';
 

@@ -9,19 +9,24 @@ interface Props {
   open: boolean;
   onClose: () => void;
   onSubmit: (values: CreateProductDto) => void;
+  initialValues?: CreateProductDto;
 }
-export const ProductForm = ({ onClose, onSubmit, open }: Props) => {
-  const initialValues: CreateProductDto = {
+export const ProductFormModal = ({
+  onClose,
+  onSubmit,
+  open,
+  initialValues = {
     name: '',
     scaleZ: 0,
     fillPercentage: 0,
     materialId: '',
-  };
+  },
+}: Props) => {
   const materials = useMaterialStore((state) => state.materials);
   return (
     <Modal show={open} size='md' popup onClose={onClose}>
-      <Modal.Header />
-      <Modal.Body>
+      <Modal.Header className='px-6 items-center'>Create Product</Modal.Header>
+      <Modal.Body className='pt-2'>
         <Formik
           initialValues={initialValues}
           validationSchema={productSchema}
@@ -30,9 +35,6 @@ export const ProductForm = ({ onClose, onSubmit, open }: Props) => {
           {({ values, handleChange, errors, touched }) => (
             <Form>
               <div className='space-y-2'>
-                <h3 className='text-xl font-medium text-gray-900 dark:text-white'>
-                  Create Product
-                </h3>
                 <div>
                   <div className='mb-2 block'>
                     <Label htmlFor='name' value='Name' />

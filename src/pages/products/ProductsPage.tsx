@@ -2,7 +2,7 @@ import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 
 import { CreateProductDto, ProductI } from '../../interfaces';
-import { CustomTable, ProductForm } from '../../components';
+import { CustomTable, ProductFormModal } from '../../components';
 
 import toast, { Toaster } from 'react-hot-toast';
 import { useProductStore } from '../../store/product/product.store';
@@ -63,7 +63,7 @@ export const ProductsPage = () => {
         <h1> Products</h1>
         <Button onClick={() => setOpenModal(true)}>Create Product</Button>
       </div>
-      <ProductForm
+      <ProductFormModal
         open={openModal}
         onSubmit={handleSubmit}
         onClose={() => setOpenModal(false)}
