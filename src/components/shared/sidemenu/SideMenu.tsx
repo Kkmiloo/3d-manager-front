@@ -62,16 +62,13 @@ export const SideMenu = () => {
   return (
     <div
       id='menu'
-      className='bg-gray-800 min-h-screen z-10 text-slate-300 w-80 left-0 '
+      className='bg-gray-800 min-h-screen z-10 text-slate-300 w-80 left-0 hidden sm:block '
     >
       <div id='logo' className='my-4 px-6'>
         {/* Title */}
-        <h1 className='text-lg md:text-2xl font-bold text-white'>
-          Zustand
-          <span className='text-blue-500 text-xs'> StateManager</span>.
-        </h1>
+        <h1 className='text-lg md:text-2xl font-bold text-white '>Farú</h1>
         <p className='text-slate-500 text-sm'>
-          Manejador de estados simple pero poderoso.
+          Dashboard de administración de productos 3D
         </p>
       </div>
 

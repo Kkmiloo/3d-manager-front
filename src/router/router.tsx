@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { DashboardLayout } from '../layout/DashboardLayout';
 import { Root } from '../Root';
 import { MaterialPage, ProductsPage } from '../pages';
+import { CalculatorPage } from '../pages/calculator/CalculatorPage';
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
 
           {
             path: 'quoter',
-            element: <h1>quoter</h1>,
+            element: <CalculatorPage />,
           },
           {
             path: 'printing',
