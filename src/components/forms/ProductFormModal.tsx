@@ -1,8 +1,7 @@
 import { ErrorMessage, Form, Formik } from 'formik';
 import { CreateProductDto } from '../../interfaces';
-import { Button, Label, Modal, Select, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
 
-import { useMaterialStore } from '../../store';
 import { productSchema } from '../../validation';
 
 interface Props {
@@ -10,22 +9,22 @@ interface Props {
   onClose: () => void;
   onSubmit: (values: CreateProductDto) => void;
   initialValues?: CreateProductDto;
+  type?: 'create' | 'edit';
 }
 export const ProductFormModal = ({
   onClose,
   onSubmit,
   open,
+  type = 'create',
   initialValues = {
     name: '',
-    scaleZ: 0,
-    fillPercentage: 0,
-    materialId: '',
   },
 }: Props) => {
-  const materials = useMaterialStore((state) => state.materials);
+  const title = type == 'create' ? 'Create Product' : 'Edit Product';
+
   return (
     <Modal show={open} size='md' popup onClose={onClose}>
-      <Modal.Header className='px-6 items-center'>Create Product</Modal.Header>
+      <Modal.Header className='px-6 items-center'>{title}</Modal.Header>
       <Modal.Body className='pt-2'>
         <Formik
           initialValues={initialValues}
@@ -55,7 +54,7 @@ export const ProductFormModal = ({
                     }
                   />
                 </div>
-                <div className='grid gap-4 sm:grid-cols-2'>
+                {/* <div className='grid gap-4 sm:grid-cols-2'>
                   <div>
                     <div className='mb-2 block'>
                       <Label htmlFor='scaleZ' value='Scale Z' />
@@ -128,10 +127,12 @@ export const ProductFormModal = ({
                       </option>
                     ))}
                   </Select>
-                </div>
+                </div> */}
               </div>
-              <div className='w-full mt-5'>
-                <Button type='submit'>Create</Button>
+              <div className='w-full mt-5 flex justify-end'>
+                <Button type='submit' className='uppercase'>
+                  {type}
+                </Button>
               </div>
             </Form>
           )}

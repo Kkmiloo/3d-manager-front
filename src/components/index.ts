@@ -1,4 +1,4 @@
-export { ProductModal } from './modal/ProductModal';
+export { Calculator } from './calculator/Calculator';
 
 export { ProductFormModal } from './forms/ProductFormModal';
 

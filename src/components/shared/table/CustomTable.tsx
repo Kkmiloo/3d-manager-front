@@ -10,9 +10,14 @@ interface Props<T extends Identifiable> {
   columns: (keyof T)[];
   itemsPerPage?: number;
   children?: string | ReactNode;
+  handleEdit: (id: string) => void;
 }
 
 //https://flowbite.com/docs/components/tables/
+
+const rowHeight = 53;
+const offset = rowHeight * 4;
+const maxTableHeight = window.innerHeight - offset;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const CustomTable = <T extends Identifiable>({
@@ -20,13 +25,10 @@ export const CustomTable = <T extends Identifiable>({
   columns,
   itemsPerPage = 9,
 
-  children,
+  handleEdit,
 }: Props<T>) => {
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.floor(data.length / itemsPerPage);
   //window
-  const rowHeight = 53;
-  const offset = rowHeight * 4;
-  const maxTableHeight = window.innerHeight - offset;
   itemsPerPage = Math.floor(maxTableHeight / rowHeight);
 
   //Paginate data
@@ -37,11 +39,6 @@ export const CustomTable = <T extends Identifiable>({
     data.slice(startIndex, endIndex)
   );
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const [dataEdit, setDataEdit] = useState(data[0]);
-
   const onPageChange = (page: number) => setCurrentPage(page);
 
   useEffect(() => {
@@ -50,8 +47,6 @@ export const CustomTable = <T extends Identifiable>({
 
   return (
     <>
-      {children}
-
       <Table>
         <Table.Head className='bg-slate-700'>
           <Table.HeadCell className='p-4'>
@@ -67,7 +62,10 @@ export const CustomTable = <T extends Identifiable>({
 
         <Table.Body className='divide-y'>
           {currentData.map((row) => (
-            <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+            <Table.Row
+              key={row.id}
+              className='bg-white dark:border-gray-700 dark:bg-gray-800'
+            >
               <Table.Cell className='p-4'>
                 <Checkbox />
               </Table.Cell>
@@ -79,7 +77,9 @@ export const CustomTable = <T extends Identifiable>({
               <Table.Cell>
                 <a
                   href='#'
-                  onClick={() => setShowEditModal(true)}
+                  onClick={() => {
+                    handleEdit(row.id as string);
+                  }}
                   className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'
                 >
                   Edit
