@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 interface Props {
   href: string;
@@ -9,8 +9,20 @@ interface Props {
 }
 
 export const SideMenuItem = ({ href, Icon, title, subTitle }: Props) => {
+  const location = useLocation();
+
   return (
-    <NavLink key={href} to={href} end>
+    <NavLink
+      key={href}
+      to={href}
+      end
+      className={
+        location.pathname.includes(href.replace('.', '')) &&
+        href.split('/').length > 1
+          ? 'active'
+          : ''
+      }
+    >
       <div>
         <Icon />
       </div>

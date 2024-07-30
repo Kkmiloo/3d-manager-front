@@ -13,18 +13,26 @@ interface ProductState {
   products: ProductI[];
   productsLoaded: boolean;
   productToEdit: ProductI | undefined;
+
   getAllProducts: () => Promise<void>;
   createProduct: (product: CreateProductDto) => Promise<void>;
   updateProduct: (product: Partial<ProductI>) => void;
+  getProductById: (id: number) => ProductI | undefined;
   setProductToEdit: (product: ProductI | undefined) => void;
 }
 
 const storeApi: StateCreator<ProductState, [['zustand/immer', never]]> = (
-  set
+  set,
+  get
 ) => ({
   products: [],
   productsLoaded: false,
   productToEdit: undefined,
+
+  getProductById: (id: number) => {
+    const { products } = get();
+    return products.find((product) => product.id === id);
+  },
   getAllProducts: async () => {
     try {
       const products = await ProductService.getAllProducts();

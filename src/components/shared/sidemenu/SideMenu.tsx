@@ -23,37 +23,37 @@ const menuItems: MenuItem[] = [
   {
     title: 'Dashboard',
     subTitle: 'Visualizar data',
-    href: '/dashboard',
+    href: '.',
     Icon: IoSpeedometerOutline,
   },
   {
     title: 'Productos',
     subTitle: '3d',
-    href: '/dashboard/products',
+    href: './products',
     Icon: IoPawOutline,
   },
   {
     title: 'Material',
     subTitle: 'filamentos',
-    href: '/dashboard/material',
+    href: './material',
     Icon: IoFlask,
   },
   {
     title: 'Cotizador',
     subTitle: 'impresiones',
-    href: '/dashboard/quoter',
+    href: './quoter',
     Icon: IoAccessibilityOutline,
   },
   {
     title: 'Impresiones',
     subTitle: 'Registro de impresiones',
-    href: '/dashboard/printing',
+    href: './printing',
     Icon: IoListOutline,
   },
   {
     title: 'Acumulado',
     subTitle: 'acumulado algo',
-    href: '/dashboard/accumulated',
+    href: './accumulated',
     Icon: IoHeartOutline,
   },
 ];

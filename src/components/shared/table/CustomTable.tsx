@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 
 import { Checkbox, Pagination, Table } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
 
 interface Identifiable {
   id: string | number;
@@ -10,7 +11,8 @@ interface Props<T extends Identifiable> {
   columns: (keyof T)[];
   itemsPerPage?: number;
   children?: string | ReactNode;
-  handleEdit: (id: string) => void;
+  handleEdit?: (id: string) => void;
+  redirectTo?: boolean;
 }
 
 //https://flowbite.com/docs/components/tables/
@@ -24,10 +26,12 @@ export const CustomTable = <T extends Identifiable>({
   data,
   columns,
   itemsPerPage = 9,
-
+  redirectTo,
   handleEdit,
 }: Props<T>) => {
   const totalPages = Math.floor(data.length / itemsPerPage);
+  console.log(totalPages);
+
   //window
   itemsPerPage = Math.floor(maxTableHeight / rowHeight);
 
@@ -39,7 +43,13 @@ export const CustomTable = <T extends Identifiable>({
     data.slice(startIndex, endIndex)
   );
 
+  const navigate = useNavigate();
+
   const onPageChange = (page: number) => setCurrentPage(page);
+
+  const handleRedirect = (id: string | number) => {
+    navigate(`./${id}`);
+  };
 
   useEffect(() => {
     setCurrentData(data.slice(startIndex, endIndex));
@@ -55,48 +65,59 @@ export const CustomTable = <T extends Identifiable>({
           {columns.map((column, i) => (
             <Table.HeadCell key={i}>{column as string}</Table.HeadCell>
           ))}
-          <Table.HeadCell>
-            <span className='sr-only'>Edit</span>
-          </Table.HeadCell>
+          {handleEdit && (
+            <Table.HeadCell>
+              <span className='sr-only'>Edit</span>
+            </Table.HeadCell>
+          )}
         </Table.Head>
 
         <Table.Body className='divide-y'>
           {currentData.map((row) => (
             <Table.Row
               key={row.id}
-              className='bg-white dark:border-gray-700 dark:bg-gray-800'
+              onClick={() => redirectTo && handleRedirect(row.id)}
+              className={`${
+                redirectTo ? 'hover:bg-gray-100 cursor-pointer' : ''
+              } bg-white dark:border-gray-700 dark:bg-gray-800`}
             >
-              <Table.Cell className='p-4'>
+              <Table.Cell className='p-4 w-2'>
                 <Checkbox />
               </Table.Cell>
               {columns.map((column) => (
-                <Table.Cell className='p-4' key={column as string}>
+                <Table.Cell
+                  className={`${row.id == row[column] ? 'w-2' : ''} p-4`}
+                  key={column as string}
+                >
                   {String(row[column])}
                 </Table.Cell>
               ))}
-              <Table.Cell>
-                <a
-                  href='#'
-                  onClick={() => {
-                    handleEdit(row.id as string);
-                  }}
-                  className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'
-                >
-                  Edit
-                </a>
-              </Table.Cell>
+              {handleEdit && (
+                <Table.Cell>
+                  <a
+                    href='#'
+                    onClick={() => {
+                      handleEdit(row.id as string);
+                    }}
+                    className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'
+                  >
+                    Edit
+                  </a>
+                </Table.Cell>
+              )}
             </Table.Row>
           ))}
         </Table.Body>
       </Table>
       <div className='flex overflow-x-auto sm:justify-end'>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-          showIcons
-          theme={{ base: 'ss' }}
-        />
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            showIcons
+          />
+        )}
       </div>
     </>
   );

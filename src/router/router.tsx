@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import { DashboardLayout } from '../layout/DashboardLayout';
 import { Root } from '../Root';
 import { MaterialPage, ProductsPage } from '../pages';
-import { CalculatorPage } from '../pages/calculator/CalculatorPage';
+import { QuoterPage } from '../pages/quoter/QuoterPage';
+import { QuoterLayout } from '../layout/QuoterLayout';
+import { QuoterCalculator } from '../pages/quoter/QuoterCalculator';
 
 export const router = createBrowserRouter([
   {
@@ -29,8 +31,19 @@ export const router = createBrowserRouter([
 
           {
             path: 'quoter',
-            element: <CalculatorPage />,
+            element: <QuoterLayout />,
+            children: [
+              {
+                path: '',
+                element: <QuoterPage />,
+              },
+              {
+                path: ':id',
+                element: <QuoterCalculator />,
+              },
+            ],
           },
+
           {
             path: 'printing',
             element: <h1>printing</h1>,
