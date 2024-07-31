@@ -1,3 +1,5 @@
+export { QuoterFormModal } from './forms/QuoterFormModal';
+
 export { HeaderCard } from './shared/cards/HeaderCard';
 
 export { Calculator } from './calculator/Calculator';

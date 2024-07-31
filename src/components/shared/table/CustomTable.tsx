@@ -6,9 +6,15 @@ import { useNavigate } from 'react-router-dom';
 interface Identifiable {
   id: string | number;
 }
+
+interface Column<T> {
+  key: keyof T;
+  label: string;
+}
+
 interface Props<T extends Identifiable> {
   data: T[];
-  columns: (keyof T)[];
+  columns: Column<T>[];
   itemsPerPage?: number;
   children?: string | ReactNode;
   handleEdit?: (id: string) => void;
@@ -30,7 +36,6 @@ export const CustomTable = <T extends Identifiable>({
   handleEdit,
 }: Props<T>) => {
   const totalPages = Math.floor(data.length / itemsPerPage);
-  console.log(totalPages);
 
   //window
   itemsPerPage = Math.floor(maxTableHeight / rowHeight);
@@ -56,14 +61,14 @@ export const CustomTable = <T extends Identifiable>({
   }, [currentPage, data, startIndex, endIndex]);
 
   return (
-    <>
+    <div className='overflow-auto '>
       <Table>
         <Table.Head className='bg-slate-700'>
           <Table.HeadCell className='p-4'>
             <Checkbox />
           </Table.HeadCell>
           {columns.map((column, i) => (
-            <Table.HeadCell key={i}>{column as string}</Table.HeadCell>
+            <Table.HeadCell key={i}>{column.label}</Table.HeadCell>
           ))}
           {handleEdit && (
             <Table.HeadCell>
@@ -86,10 +91,10 @@ export const CustomTable = <T extends Identifiable>({
               </Table.Cell>
               {columns.map((column) => (
                 <Table.Cell
-                  className={`${row.id == row[column] ? 'w-2' : ''} p-4`}
-                  key={column as string}
+                  className={`${row.id == row[column.key] ? 'w-2' : ''} p-4`}
+                  key={column.key as string}
                 >
-                  {String(row[column])}
+                  {String(row[column.key])}
                 </Table.Cell>
               ))}
               {handleEdit && (
@@ -119,6 +124,6 @@ export const CustomTable = <T extends Identifiable>({
           />
         )}
       </div>
-    </>
+    </div>
   );
 };
