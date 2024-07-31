@@ -60,7 +60,16 @@ export const QuoterPage = () => {
       ) : (
         <CustomTable
           data={productToSearch}
-          columns={['id', 'name']}
+          columns={[
+            {
+              key: 'id',
+              label: 'ID',
+            },
+            {
+              key: 'name',
+              label: 'Name',
+            },
+          ]}
           redirectTo
         />
       )}
