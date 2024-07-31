@@ -39,10 +39,8 @@ export const ProductsPage = () => {
   const handleEdit = async (id: string) => {
     //find the product
     setOpenModalEdit(true);
-    console.log({ products });
 
-    const editedProduct = products.find((product) => product.id === id);
-    console.log({ editedProduct });
+    const editedProduct = products.find((product) => product.id === Number(id));
 
     setProductToEdit(editedProduct);
   };
@@ -82,7 +80,14 @@ export const ProductsPage = () => {
         onClose={() => setOpenModal(false)}
       />
 
-      <CustomTable data={products} columns={['name']} handleEdit={handleEdit} />
+      <CustomTable
+        data={products}
+        columns={[
+          { key: 'id', label: 'ID' },
+          { key: 'name', label: 'Nombre' },
+        ]}
+        handleEdit={handleEdit}
+      />
 
       <ProductFormModal
         type='edit'
