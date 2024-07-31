@@ -18,6 +18,7 @@ interface MenuItem {
 
 import './SideMenu.css';
 import { SideMenuItem } from './SideMenuItem';
+import { Link } from 'react-router-dom';
 
 const menuItems: MenuItem[] = [
   {
@@ -115,12 +116,12 @@ export const SideMenu = () => {
 
       <div className='lg:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-gray-800 text-white flex justify-around items-center'>
         {menuItems.map((item) => (
-          <a key={item.href} href={item.href}>
+          <Link key={item.href} to={item.href}>
             <div className='flex flex-col items-center'>
               <item.Icon />
               {item.title}
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </>
