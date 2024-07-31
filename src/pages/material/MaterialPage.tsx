@@ -62,7 +62,7 @@ export const MaterialPage = () => {
 
   return (
     <>
-      <div className=' flex justify-between mb-6'>
+      <div className='flex justify-between mb-6'>
         <Toaster position='top-center' reverseOrder={false} />
         <h1> Material </h1>
         <div className='flex gap-2'>
@@ -83,10 +83,14 @@ export const MaterialPage = () => {
         onSubmit={handleSubmit}
         onClose={() => setOpenModal(false)}
       />
-      <div className='mt-6 '>
+      <div>
         <CustomTable
           data={materials}
-          columns={['id', 'name', 'type']}
+          columns={[
+            { key: 'id', label: 'ID' },
+            { key: 'name', label: 'Nombre' },
+            { key: 'type', label: 'tipo' },
+          ]}
           handleEdit={handleEdit}
         />
       </div>

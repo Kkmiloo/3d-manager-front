@@ -22,11 +22,11 @@ export const DashboardLayout = () => {
     }
   }, [getMaterials, materialsLoaded]);
   return (
-    <div className='bg-slate-200 w-screen h-screen antialiased text-slate-900 selection:bg-blue-900 selection:text-white'>
-      <div className='flex flex-row relative w-screen h-screen'>
+    <div className='bg-slate-200 h-screen antialiased text-slate-900 selection:bg-blue-900 selection:text-white'>
+      <div className='h-screen'>
         <SideMenu />
 
-        <div className='w-full p-7'>
+        <div className='lg:ml-64 lg:pl-7 lg:flex lg:flex-col lg:w-75% mx-4 px-4 pt-10'>
           <Outlet />
         </div>
       </div>
